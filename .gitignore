@@ -53,3 +53,5 @@ dkms.conf
 
 # debug information files
 *.dwo
+/.vs/TetrisGame_project_pk.slnx/v18
+/.vs/TetrisGame_project_pk.slnx/FileContentIndex
