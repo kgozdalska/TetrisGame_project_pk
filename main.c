@@ -4,6 +4,8 @@
 #include "game.h"
 
 int main() { 
+	srand(time(NULL));
+
 	gameStart();
 	
 	while (1) { // główna pętla działająca w nieskończoność 
@@ -21,3 +23,4 @@ int main() {
 	}
 	return 0;
 }
+
