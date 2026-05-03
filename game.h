@@ -7,3 +7,6 @@
 // deklaracja funkcji startowej
 void gameStart();
 
+//deklaracja funkcji rozpoznającej przycisk
+int checkButton();
+

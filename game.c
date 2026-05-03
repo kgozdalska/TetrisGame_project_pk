@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <conio.h> // biblioteka umożliwiająca odczywanie użytych klawiszy na klawiaturze
 #include "game.h"
 
 
@@ -24,5 +25,13 @@ void gameStart() {
 
     //te printy potem są do usunięcia albo po prostu sprawdzam sobie czy działa coś 
     printf("Gra Tetris uruchomiona!\n");
-    printf("Plansza uzupełniona, punktacja: %d\n", score);
+    printf("Plansza uzupelniona, punktacja: %d\n", score);
+    printf("Jesli chcesz zakonczyc gre wcisnij [ESC]\n");
+}
+
+int checkButton() {
+    if (_kbhit()) { // warunek z funkcją kbhit sprawdza czy jakiś klawisz został naciśnięty
+        return _getch(); // jeśli tak to funkcja getch odczytuje kod znaku wciśniętego na klawiaturze
+    }
+    return 0; // jeśli nie zwraca 0
 }
