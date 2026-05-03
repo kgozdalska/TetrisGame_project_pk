@@ -56,3 +56,5 @@ dkms.conf
 /.vs/TetrisGame_project_pk.slnx/v18
 /.vs/TetrisGame_project_pk.slnx/FileContentIndex
 /TetrisGa.3736867e/x64/Debug
+tetris_mac
+.DS_Store
