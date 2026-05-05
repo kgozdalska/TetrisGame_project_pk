@@ -9,7 +9,7 @@
 //int board[boardWidth][boardHeight];
 int score = 0;
 
-const int blockShapes [7][4][4] = {
+const int blockShapes[7][4][4] = {
     //Tetrimino "I"
     {
         {0,1,0,0},
@@ -62,30 +62,21 @@ const int blockShapes [7][4][4] = {
 }
 
 int currentBlockX;
-int currentBblockY;
+int currentBlockY;
 int currentBlock;
+int linesClearedTotal = 0;
 
 void gameStart() {
 
-    // generowanie losowych liczb żeby przy każdym ropoczęciu gry klocki losowały się inaczej
-    //srand(time(NULL));
+    srand(time(NULL));
 
-    // resetowanie punktacji
-    score = 0;
-
-    // uzupełnianie planszy zerami, 0 oznacza puste pole
     createBoard();
-   /* for (int i = 0; i < boardWidth; i++) {
-        for (int j = 0; j < boardHeight; j++) {
-            board[i][j] = 0;
-        }
-    }*/
 
-    //te printy potem są do usunięcia albo po prostu sprawdzam sobie czy działa coś 
-    printf("Gra Tetris uruchomiona!\n");
-    printf("Plansza uzupelniona, punktacja: %d\n", score);
-    printf("Jesli chcesz zakonczyc gre wcisnij [ESC]\n");
-}
+    score = 0;
+    linesClearedTotal = 0;
+
+    spawnBlock();
+    }
 
 int checkButton() {
     if (_kbhit()) { // warunek z funkcją kbhit sprawdza czy jakiś klawisz został naciśnięty
@@ -93,6 +84,76 @@ int checkButton() {
     }
     return 0; // jeśli nie zwraca 0
 }
+
+void moveBlock() {
+    if (checkIfBlockFits(currentBlockX, currentBlockY, currentBlock)) {
+        currentBlockY++;
+    }
+    else {
+        blockBlock();
+    }
+}
+
+void moveLeft() {
+    if (checkIfBlockFits(currentBlockX - 1, currentBlockY, currentBlock)) {
+        currentBlockX--;
+    }
+}
+
+void moveRight() {
+    if (checkIfBlockFits(currentBlockX + 1, currentBlockY, currentBlock)) {
+        currentBlockX++;
+    }
+}
+
+void blockBlock() {
+    for (int i = 0; i < 4;i++) {
+        for (int j = 0;j < 4;j++) {
+            if (blockShapes[currentBlock][i][j] == 1) {
+                board[currentBlockX + j][currentBlockY + i] = 1;
+            }
+        }
+    }
+    clearLine();
+    spawnBlock();
+}
+
+void clearLine() {
+    int clearedLines = 0;
+        for (int  y = boardHeight - 1;y >= 0;y--) {
+            int isFull = 1;
+            for (int x = 0;x < boardWidth; x++) {
+                if (board[x][y] == 0) {
+                    isFull = 0;
+                    break;
+                }
+            }
+            if (isFull) {
+                clearedLines++;
+                linesClearedTotal++;
+                for (int tempy = y; tempy > 0; tempy--) {
+                    for (int tempx = 0; tempx < boardWidth;tempx++) {
+                        board[tempx][tempy] = board[tempx][tempy - 1];
+                    }
+                }
+                for (int tempx = 0;tempx < boardWidth;tempx++) {
+                    board[tempx][0] = 0;
+                }
+                y++;
+            }
+        }
+        /*if (clearedLines == 1){
+        *   score = 40 * (level +1);}
+        * else if (clearedLines == 2){
+        *   score = 100 * (level +1);}
+        * else if (clearedLines == 3){
+        *   score = 300 * (level +1);}
+        * else if (clearedLines == 4){
+        *   score = 1200 * (level +1);}
+        */
+}
+
+/*=========================================================================================================*/
 
 int chooseBlock() {
     return currentBlock = rand() % 7;
@@ -103,7 +164,7 @@ void spawnBlock() {
     currentBlockX = 3;
     currentBlockY = 0;
 
-    if(checkIfBlockFits(currentBlockX, currentBblockY,currentBlock) == 0) {
+    if(checkIfBlockFits(currentBlockX, currentBlockY,currentBlock) == 0) {
         return 0;
     }
     return 1;
@@ -133,3 +194,4 @@ void gameOver() {
 
     printf("Wciśnij klawisz ESC, aby wyjść");
 }
+

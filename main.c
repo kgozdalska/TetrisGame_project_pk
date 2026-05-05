@@ -13,7 +13,7 @@ int main() {
 		
 		if (sign == 27) { // 27 to kod klawisza ESC
 			printf("Koniec gry!\n");
-			break; // to słowo przerywa pętlę while(1)
+			break; // to przerywa pętlę while(1)
 		}
 
 		//sprawdzanie czy działa 
