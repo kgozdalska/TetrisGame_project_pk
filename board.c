@@ -7,12 +7,120 @@
 //int board[boardHeight][boardWidth];
 
 void createBoard() {
-    for (int i = 0; i < boardWidth; i++) {
-        for (int j = 0; j < boardHeight; j++) {
+    for (int j = 0; j < boardHeight; i++) {
+        for (int i = 0; i < boardWidth; j++) {
             board[i][j] = 0;
         }
     }
 }
 
-void checkIfBlockFits(current) {
+void drawBoard() {
+    system("cls")
+
+    printf("Wynik: %d   Poziom: %d\n", score, level);
+    printf("--------------------\n");
+
+    for (int j = 0; j < 20; j++) {
+        printf("|");
+
+        for (int i = 0; i < 10; i++) {
+
+            int isDrawn = 0;
+
+            if (i >= currentBlockX && i < currentBlockX + 4 && j >= currentBlockY && y < currentBlockY + 4) {
+                int blockX = i - currentBlockX;
+                int blockY = j - currentBlockY;
+
+                if (blockShapes[currentBlock][blockY][blockX] == 1) {
+                    printf("[]");
+                    isDrawn = 1;
+            }
+        }
+
+        if(isDrawn == 0) {
+            if(board[i][j] == 1) {
+                printf("[]")
+            }
+            else {
+                printf("  ")
+            }
+        }
+    }
+    printf("|\n");
+}
+printf("--------------------\n")
+}
+
+int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlock) {
+    for (int y = 0; x < 4, x++) {
+        for (int x = 0; y < 4, y++) {
+            if (blockShapes[currentBlock][y][x] == 1) {
+                int boardX = blockTestX + x;
+                int boardY = blockTestY +y;
+
+                //sprawdzanie ścian
+                if (boardX < 0 || boaardX >=10) {
+                    return 0; // uderzy w bok planszy
+                }
+
+                //sprawdzanie podłogi
+                if (boardY >= boardHeight) {
+                    return 0; // uderzy w podłogę
+                }
+
+                //sprawdzanie innych klockow
+                if (boardY >= 0 && board[boardY][boardX] == 1) {
+                    return 0; // zderzenie z klockiem
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+void blockBlock() {
+    for (int i = 0; i < 4;i++) {
+        for (int j = 0;j < 4;j++) {
+            if (blockShapes[currentBlock][i][j] == 1) {
+                board[currentBlockX + j][currentBlockY + i] = 1;
+            }
+        }
+    }
+    clearLine();
+    spawnBlock();
+}
+
+void clearLine() {
+    int clearedLines = 0;
+        for (int  y = boardHeight - 1;y >= 0;y--) {
+            int isFull = 1;
+            for (int x = 0;x < boardWidth; x++) {
+                if (board[x][y] == 0) {
+                    isFull = 0;
+                    break;
+                }
+            }
+            if (isFull) {
+                clearedLines++;
+                linesClearedTotal++;
+                for (int tempy = y; tempy > 0; tempy--) {
+                    for (int tempx = 0; tempx < boardWidth;tempx++) {
+                        board[tempx][tempy] = board[tempx][tempy - 1];
+                    }
+                }
+                for (int tempx = 0;tempx < boardWidth;tempx++) {
+                    board[tempx][0] = 0;
+                }
+                y++;
+            }
+        }
+        /*if (clearedLines == 1){
+        *   score = 40 * (level +1);}
+        * else if (clearedLines == 2){
+        *   score = 100 * (level +1);}
+        * else if (clearedLines == 3){
+        *   score = 300 * (level +1);}
+        * else if (clearedLines == 4){
+        *   score = 1200 * (level +1);}
+        */
 }
