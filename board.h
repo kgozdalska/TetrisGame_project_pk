@@ -4,6 +4,9 @@
 #define boardHeight 20
 #define boardWidth 10
 extern int board[boardHeight][boardWidth];
+extern int score;
+extern int level;
+extern const int blockShapes[7][4][4];
 
 // deklaracja funkcji tworzącej planszę
 void createBoard();

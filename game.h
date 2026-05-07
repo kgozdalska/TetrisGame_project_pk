@@ -1,8 +1,10 @@
 #pragma once
 
-// definiowanie wierszy i kolumn dla planszy 
-//#define boardHeight 10
-//#define boardWidth 20
+extern int currentBlockX;
+extern int currentBlockY;
+extern int currentBlock;
+extern int linesClearedTotal;
+extern int isGameOver;
 
 // deklaracja funkcji startowej
 void gameStart();
@@ -20,6 +22,7 @@ void moveLeft();
 void moveRight();
 
 //deklaracja funkcji obracającj klocek
+void rotateBlock();
 
 /*====================================================================================*/
 

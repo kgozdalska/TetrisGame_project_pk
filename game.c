@@ -65,6 +65,7 @@ int currentBlockX;
 int currentBlockY;
 int currentBlock;
 int linesClearedTotal = 0;
+int isGameOver = 0;
 
 void gameStart() {
 
@@ -84,7 +85,7 @@ int checkButton() {
 }
 
 void moveBlock() {
-    if (checkIfBlockFits(currentBlockX, currentBlockY, currentBlock)) {
+    if (checkIfBlockFits(currentBlockX, currentBlockY + 1, currentBlock)) {
         currentBlockY++;
     }
     else {
@@ -110,7 +111,7 @@ int chooseBlock() {
     return currentBlock = rand() % 7;
 }
 
-void spawnBlock() {
+int spawnBlock() {
     currentBlock = chooseBlock();
     currentBlockX = 3;
     currentBlockY = 0;
@@ -124,12 +125,42 @@ void spawnBlock() {
 
 
 void gameRun() {
-    int isGameOver = 0;
+    clock_t previousTime = clock();
+    int timeBeforeMove = 800;
 
+    drawBoard();
+    
     while (isGameOver == 0) {
-        checkButton();
-        //.....
+        int button = checkButton();
+        
+        if(button == 224) {
+            button = checkButton();
+            if (button == 75) {
+                moveLeft();
+            }
+            else if (button == 77) {
+                moveRight();
+            }
+            else if (button == 80) {
+                moveBlock();
+            }
 
+        }
+        else if (button == 32) {
+            rotateBlock();
+        }
+        else if (button == 27) {
+            break;
+        }
+        clock_t currentTime = clock();
+
+        if((currentTime - previousTime) >= timeBeforeMove) {
+            moveBlock():
+            previousTime = currentTime;
+        }
+        drawBoard();
+
+        Sleep(10);
     }
 }
 

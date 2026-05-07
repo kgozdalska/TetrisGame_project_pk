@@ -4,18 +4,18 @@
 #include "board.h"
 #include "game.h"
 
-//int board[boardHeight][boardWidth];
+int board[boardHeight][boardWidth];
 
 void createBoard() {
-    for (int j = 0; j < boardHeight; i++) {
-        for (int i = 0; i < boardWidth; j++) {
+    for (int j = 0; j < boardHeight; j++) {
+        for (int i = 0; i < boardWidth; i++) {
             board[i][j] = 0;
         }
     }
 }
 
 void drawBoard() {
-    system("cls")
+    system("cls");
 
     printf("Wynik: %d   Poziom: %d\n", score, level);
     printf("--------------------\n");
@@ -39,21 +39,21 @@ void drawBoard() {
 
         if(isDrawn == 0) {
             if(board[i][j] == 1) {
-                printf("[]")
+                printf("[]");
             }
             else {
-                printf("  ")
+                printf("  ");
             }
         }
     }
     printf("|\n");
 }
-printf("--------------------\n")
+printf("--------------------\n");
 }
 
 int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlock) {
-    for (int y = 0; x < 4, x++) {
-        for (int x = 0; y < 4, y++) {
+    for (int y = 0; y < 4, y++) {
+        for (int x = 0; x < 4, x++) {
             if (blockShapes[currentBlock][y][x] == 1) {
                 int boardX = blockTestX + x;
                 int boardY = blockTestY +y;
@@ -87,7 +87,9 @@ void blockBlock() {
         }
     }
     clearLine();
-    spawnBlock();
+   if (spawnBlock() == 0) {
+    isGameOver = 1;
+   }
 }
 
 void clearLine() {

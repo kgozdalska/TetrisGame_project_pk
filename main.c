@@ -2,24 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include "game.h"
+#include "board.h"
 
 int main() { 
-	srand(time(NULL));
-
+	srand((unsigned int)time(NULL));
 	gameStart();
-	
-	while (1) { // główna pętla działająca w nieskończoność 
-		int sign = checkButton(); 
-		
-		if (sign == 27) { // 27 to kod klawisza ESC
-			printf("Koniec gry!\n");
-			break; // to przerywa pętlę while(1)
-		}
-
-		//sprawdzanie czy działa 
-		if (sign != 0) {
-			printf("wybrano klawisz o kodzie %d\n", sign);
-		}
+	gameRun();
 	}
 	return 0;
 }
