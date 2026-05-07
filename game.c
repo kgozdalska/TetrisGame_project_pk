@@ -6,7 +6,6 @@
 #include "board.h"
 
 
-//int board[boardWidth][boardHeight];
 int score = 0;
 
 const int blockShapes[7][4][4] = {
@@ -67,8 +66,6 @@ int currentBlock;
 int linesClearedTotal = 0;
 
 void gameStart() {
-
-    srand(time(NULL));
 
     createBoard();
 
@@ -170,10 +167,7 @@ void spawnBlock() {
     return 1;
 }
 
-void waitTime() {
-    sleep(800);
-    //trzeba się zastanowić jak zrobić, zeby w tym czasie uzytkownik mogl obracac klocek
-}
+
 
 void gameRun() {
     int isGameOver = 0;
