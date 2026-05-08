@@ -5,6 +5,9 @@ extern int currentBlockY;
 extern int currentBlock;
 extern int linesClearedTotal;
 extern int isGameOver;
+extern int score;
+extern int level;
+extern const int blockShapes[7][4][4];
 
 // deklaracja funkcji startowej
 void gameStart();
