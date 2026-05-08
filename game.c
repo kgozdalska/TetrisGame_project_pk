@@ -75,8 +75,8 @@ void gameStart() {
 
     createBoard();
 
-    score = 0;
-    linesClearedTotal = 0;
+    int score = 0;
+    int linesClearedTotal = 0;
 
     spawnBlock();
     }

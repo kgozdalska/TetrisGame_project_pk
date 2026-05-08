@@ -27,7 +27,7 @@ void drawBoard() {
 
             int isDrawn = 0;
 
-            if (i >= currentBlockX && i < currentBlockX + 4 && j >= currentBlockY && y < currentBlockY + 4) {
+            if (i >= currentBlockX && i < currentBlockX + 4 && j >= currentBlockY && j < currentBlockY + 4) {
                 int blockX = i - currentBlockX;
                 int blockY = j - currentBlockY;
 
@@ -52,14 +52,14 @@ printf("--------------------\n");
 }
 
 int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlock) {
-    for (int y = 0; y < 4, y++) {
-        for (int x = 0; x < 4, x++) {
+    for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < 4; x++) {
             if (blockShapes[currentBlock][y][x] == 1) {
                 int boardX = blockTestX + x;
                 int boardY = blockTestY +y;
 
                 //sprawdzanie ścian
-                if (boardX < 0 || boaardX >=10) {
+                if (boardX < 0 || boardX >=10) {
                     return 0; // uderzy w bok planszy
                 }
 
@@ -97,7 +97,7 @@ void clearLine() {
         for (int  y = boardHeight - 1;y >= 0;y--) {//pętla przechodzi od dołu planszy
             int isFull = 1;
             for (int x = 0;x < boardWidth; x++) {//sprawdzanie czy wiersz zawiera 0 nie jest pełen
-                if (board[x][y] == 0) {
+                if (board[y][x] == 0) {
                     isFull = 0;
                     break;
                 }

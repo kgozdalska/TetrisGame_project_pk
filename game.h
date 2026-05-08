@@ -33,7 +33,7 @@ void rotateBlock();
 int chooseBlock();
 
 //deklaracja funkcji tworzącej wylosowany klocek na samej gorze i środku planszy
-void spawnBlock();
+int spawnBlock();
 
 //deklaracja funkcji operującej grą
 void gameRun();
