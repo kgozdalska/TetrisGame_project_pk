@@ -8,7 +8,16 @@
 
 int score = 0;
 int level = 0;
+int timeBeforeMove = 800;
+const int speed[20] = {800, 716, 633, 550, 466, 383, 300, 216, 133, 100, 83, 66, 50, 33};
 
+
+int currentBlockX;
+int currentBlockY;
+int currentBlock;
+int currentBlockRotate[4][4];
+int linesClearedTotal = 0;
+int isGameOver = 0;
 
 const int blockShapes[7][4][4] = {
     //Tetrimino "I"
@@ -61,13 +70,6 @@ const int blockShapes[7][4][4] = {
         {0,0,0,0}
     }
 }
-
-int currentBlockX;
-int currentBlockY;
-int currentBlock;
-int currentBlockRotate[4][4];
-int linesClearedTotal = 0;
-int isGameOver = 0;
 
 void gameStart() {
 
@@ -161,11 +163,8 @@ int spawnBlock() {
     return 1;
 }
 
-
-
 void gameRun() {
     clock_t previousTime = clock();
-    int timeBeforeMove = 800;
 
     drawBoard();
     
@@ -197,9 +196,22 @@ void gameRun() {
             moveBlock();
             previousTime = currentTime;
         }
+
+        clearLine();
+
+        int speedLevel = level;
+        if(speedLevel > 19) {
+            speedLevel = 19;
+        }
+
+        int timeBeforeMove = speed[speedLevel];
+
         drawBoard();
 
         Sleep(10);
+    }
+    if (isGameOver == 1) {
+        gameOver();
     }
 }
 
