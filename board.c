@@ -116,7 +116,7 @@ void clearLine() {
                 y++; //sprawdzanie znów tego samego wiersza
             }
         }
-        if (clearedLines > 0) {
+        if (clearedLines > 0) { //liczenie punktów
             if (clearedLines == 1) {
                 score += 40 * (level + 1);
             }
@@ -131,8 +131,7 @@ void clearLine() {
             }
         }
 
-        //przyśpieszanie jeszcze muszę przemyśleć
-        /*if (linesClearedTotal >= (level + 1) * 10) {
+        /*if (linesClearedTotal >= (level + 1) * 10) {//zwiększanie levelu i szybkości
             level++;
 
             if (speed > 100) {
