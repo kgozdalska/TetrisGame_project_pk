@@ -8,7 +8,6 @@ int main() {
 	srand((unsigned int)time(NULL));
 	gameStart();
 	gameRun();
-	}
 	return 0;
 }
 

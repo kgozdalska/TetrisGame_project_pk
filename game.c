@@ -61,12 +61,6 @@ const int blockShapes[7][4][4] = {
     }
 }
 
-int currentBlockX;
-int currentBlockY;
-int currentBlock;
-int linesClearedTotal = 0;
-int isGameOver = 0;
-
 void gameStart() {
 
     createBoard();
@@ -121,8 +115,6 @@ int spawnBlock() {
     }
     return 1;
 }
-
-
 
 void gameRun() {
     clock_t previousTime = clock();
