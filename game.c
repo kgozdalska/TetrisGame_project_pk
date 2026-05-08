@@ -9,6 +9,7 @@
 int score = 0;
 int level = 0;
 
+
 const int blockShapes[7][4][4] = {
     //Tetrimino "I"
     {
@@ -64,6 +65,7 @@ const int blockShapes[7][4][4] = {
 int currentBlockX;
 int currentBlockY;
 int currentBlock;
+int currentBlockRotate[4][4];
 int linesClearedTotal = 0;
 int isGameOver = 0;
 
@@ -105,6 +107,37 @@ void moveRight() {
     }
 }
 
+void rotateBlock() {
+    int oldShape[4][4];
+    int tempShape[4][4];
+
+    for (int i = 0; i < 4; i++) { //zapamiętanie aktualnego klocka
+        for (int j = 0; j < 4; j++) {
+            oldShape[i][j] = currentBlockRotate[i][j];
+        }
+    }
+
+    for (int i = 0; i < 4; i++) { //tworzenie obruconego klocka
+        for (int j = 0; j < 4; j++) {
+            tempShape[j][3 - i] = oldShape[i][j];
+        }
+    }
+
+    for (int i = 0; i < 4; i++) { //podmieniamy kształt w głównej tablicy żeby móc sprawdzić czy się mieści
+        for (int j = 0; j < 4; j++) {
+            currentBlockRotate[i][j] = tempShape[i][j];
+        }
+    }
+
+    if (!checkIfBlockFits(currentBlockX, currentBlockY, currentBlock)) { //jeśli się nie mieści przywracamy stary kształt
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                currentBlockRotate[i][j] = oldShape[i][j];
+            }
+        }
+    }
+}
+
 /*=========================================================================================================*/
 
 int chooseBlock() {
@@ -115,6 +148,12 @@ int spawnBlock() {
     currentBlock = chooseBlock();
     currentBlockX = 3;
     currentBlockY = 0;
+
+    for (int i = 0; i < 4; i++) { // to jest kopiowanie bloku potrzebne do rotateBlock
+        for (int j = 0; j < 4; j++) {
+            currentBlockRotate[i][j] = blockShapes[currentBlock][i][j];
+        }
+    }
 
     if(checkIfBlockFits(currentBlockX, currentBlockY,currentBlock) == 0) {
         return 0;
@@ -155,7 +194,7 @@ void gameRun() {
         clock_t currentTime = clock();
 
         if((currentTime - previousTime) >= timeBeforeMove) {
-            moveBlock():
+            moveBlock();
             previousTime = currentTime;
         }
         drawBoard();

@@ -94,35 +94,50 @@ void blockBlock() {
 
 void clearLine() {
     int clearedLines = 0;
-        for (int  y = boardHeight - 1;y >= 0;y--) {
+        for (int  y = boardHeight - 1;y >= 0;y--) {//pętla przechodzi od dołu planszy
             int isFull = 1;
-            for (int x = 0;x < boardWidth; x++) {
+            for (int x = 0;x < boardWidth; x++) {//sprawdzanie czy wiersz zawiera 0 nie jest pełen
                 if (board[x][y] == 0) {
                     isFull = 0;
                     break;
                 }
             }
-            if (isFull) {
+            if (isFull) { //jeśli pełny wiersz
                 clearedLines++;
                 linesClearedTotal++;
-                for (int tempy = y; tempy > 0; tempy--) {
+                for (int tempy = y; tempy > 0; tempy--) {//kopiowanie wiersza na dół - spadanie
                     for (int tempx = 0; tempx < boardWidth;tempx++) {
                         board[tempx][tempy] = board[tempx][tempy - 1];
                     }
                 }
-                for (int tempx = 0;tempx < boardWidth;tempx++) {
+                for (int tempx = 0;tempx < boardWidth;tempx++) { //usuwanie 
                     board[tempx][0] = 0;
                 }
-                y++;
+                y++; //sprawdzanie znów tego samego wiersza
             }
         }
-        /*if (clearedLines == 1){
-        *   score = 40 * (level +1);}
-        * else if (clearedLines == 2){
-        *   score = 100 * (level +1);}
-        * else if (clearedLines == 3){
-        *   score = 300 * (level +1);}
-        * else if (clearedLines == 4){
-        *   score = 1200 * (level +1);}
-        */
+        if (clearedLines > 0) {
+            if (clearedLines == 1) {
+                score += 40 * (level + 1);
+            }
+            else if (clearedLines == 2) {
+                score += 100 * (level + 1);
+            }
+            else if (clearedLines == 3) {
+                score += 300 * (level + 1);
+            }
+            else if (clearedLines >= 4) {
+                score += 1200 * (level + 1);
+            }
+        }
+
+        //przyśpieszanie jeszcze muszę przemyśleć
+        /*if (linesClearedTotal >= (level + 1) * 10) {
+            level++;
+
+            if (speed > 100) {
+                speed -= 80;
+            }
+        }*/
+        
 }
