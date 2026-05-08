@@ -20,3 +20,4 @@ void blockBlock();
 //deklaracja funkcji czyszczącej pełne linie
 void clearLine();
 
+

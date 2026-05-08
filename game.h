@@ -3,6 +3,7 @@
 extern int currentBlockX;
 extern int currentBlockY;
 extern int currentBlock;
+extern int currentBlockRotate[4][4];
 extern int linesClearedTotal;
 extern int isGameOver;
 extern int score;
@@ -40,5 +41,3 @@ void gameRun();
 
 //deklaracja funkcji kończącej grę
 void gameOver();
-
-

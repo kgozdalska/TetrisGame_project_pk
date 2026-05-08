@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
 #include "board.h"
 #include "game.h"
 
@@ -9,13 +10,14 @@ int board[boardHeight][boardWidth];
 void createBoard() {
     for (int j = 0; j < boardHeight; j++) {
         for (int i = 0; i < boardWidth; i++) {
-            board[i][j] = 0;
+            board[j][i] = 0;
         }
     }
 }
 
 void drawBoard() {
-    system("cls");
+    COORD pos = {0, 0};
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
     printf("Wynik: %d   Poziom: %d\n", score, level);
     printf("--------------------\n");
@@ -31,14 +33,14 @@ void drawBoard() {
                 int blockX = i - currentBlockX;
                 int blockY = j - currentBlockY;
 
-                if (blockShapes[currentBlock][blockY][blockX] == 1) {
+                if (currentBlockRotate[blockY][blockX] == 1) {
                     printf("[]");
                     isDrawn = 1;
             }
         }
 
         if(isDrawn == 0) {
-            if(board[i][j] == 1) {
+            if(board[j][i] == 1) {
                 printf("[]");
             }
             else {
@@ -54,12 +56,12 @@ printf("--------------------\n");
 int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlock) {
     for (int y = 0; y < 4; y++) {
         for (int x = 0; x < 4; x++) {
-            if (blockShapes[currentBlock][y][x] == 1) {
+            if (currentBlockRotate[y][x] == 1) {
                 int boardX = blockTestX + x;
                 int boardY = blockTestY +y;
 
                 //sprawdzanie ścian
-                if (boardX < 0 || boardX >=10) {
+                if (boardX < 0 || boardX >= 10) {
                     return 0; // uderzy w bok planszy
                 }
 
@@ -81,8 +83,8 @@ int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlock) {
 void blockBlock() {
     for (int i = 0; i < 4;i++) {
         for (int j = 0;j < 4;j++) {
-            if (blockShapes[currentBlock][i][j] == 1) {
-                board[currentBlockX + j][currentBlockY + i] = 1;
+            if (currentBlockRotate[i][j] == 1) {
+                board[currentBlockY + i][currentBlockX + j] = 1;
             }
         }
     }
@@ -107,11 +109,11 @@ void clearLine() {
                 linesClearedTotal++;
                 for (int tempy = y; tempy > 0; tempy--) {//kopiowanie wiersza na dół - spadanie
                     for (int tempx = 0; tempx < boardWidth;tempx++) {
-                        board[tempx][tempy] = board[tempx][tempy - 1];
+                        board[tempy][tempx] = board[tempy - 1][tempx];
                     }
                 }
                 for (int tempx = 0;tempx < boardWidth;tempx++) { //usuwanie 
-                    board[tempx][0] = 0;
+                    board[0][tempx] = 0;
                 }
                 y++; //sprawdzanie znów tego samego wiersza
             }
@@ -131,12 +133,8 @@ void clearLine() {
             }
         }
 
-        /*if (linesClearedTotal >= (level + 1) * 10) {//zwiększanie levelu i szybkości
+        if (linesClearedTotal >= (level + 1) * 10) { //zwiększanie levelu
             level++;
-
-            if (speed > 100) {
-                speed -= 80;
-            }
-        }*/
+        }
         
 }

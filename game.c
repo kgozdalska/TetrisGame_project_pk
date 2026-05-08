@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
 #include <conio.h> // biblioteka umożliwiająca odczywanie użytych klawiszy na klawiaturze
 #include "game.h"
 #include "board.h"
@@ -69,17 +70,19 @@ const int blockShapes[7][4][4] = {
         {0,1,1,0},
         {0,0,0,0}
     }
-}
+};
 
 void gameStart() {
+    CONSOLE_CURSOR_INFO cursorInfo = {1, FALSE};
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 
     createBoard();
 
-    int score = 0;
-    int linesClearedTotal = 0;
+    score = 0;
+    linesClearedTotal = 0;
 
     spawnBlock();
-    }
+}
 
 int checkButton() {
     if (_kbhit()) { // warunek z funkcją kbhit sprawdza czy jakiś klawisz został naciśnięty
@@ -204,7 +207,7 @@ void gameRun() {
             speedLevel = 19;
         }
 
-        int timeBeforeMove = speed[speedLevel];
+        timeBeforeMove = speed[speedLevel];
 
         drawBoard();
 
@@ -224,4 +227,5 @@ void gameOver() {
 
     printf("Wciśnij klawisz ESC, aby wyjść");
 }
+
 
