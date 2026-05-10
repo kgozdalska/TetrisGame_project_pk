@@ -76,68 +76,71 @@ void gameStart() {
     CONSOLE_CURSOR_INFO cursorInfo = {1, FALSE};
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 
-    createBoard();
+    createBoard(); //wywołanie fukcji createBoard
 
-    score = 0;
-    linesClearedTotal = 0;
+    score = 0; //zerowanie licznika puktów
+    linesClearedTotal = 0; //zerowanie licznika usuniętych lini
 
-    spawnBlock();
+    spawnBlock(); //wywołanie funkcji spawnBlock
 }
 
-int checkButton() {
-    if (_kbhit()) { // warunek z funkcją kbhit sprawdza czy jakiś klawisz został naciśnięty
-        return _getch(); // jeśli tak to funkcja getch odczytuje kod znaku wciśniętego na klawiaturze
+int checkButton() { //funkcja sprawdzająca jaki klawisz został wciśnięty 
+    if (_kbhit()) { //warunek z funkcją kbhit sprawdza czy jakiś klawisz został naciśnięty
+        return _getch(); //jeśli tak to funkcja getch odczytuje kod znaku wciśniętego na klawiaturze
     }
-    return 0; // jeśli nie zwraca 0
+    return 0; //jeśli nie zwraca 0
 }
 
-void moveBlock() {
-    if (checkIfBlockFits(currentBlockX, currentBlockY + 1, currentBlock)) {
-        currentBlockY++;
+void moveBlock() { //funkcja poruszająca klocek w dół
+    if (checkIfBlockFits(currentBlockX, currentBlockY + 1, currentBlock)) { //warunek sprawdzający czy po przesunięcia klocka w dół zmieści się on na planszy
+        currentBlockY++; //jeśli tak to przesuń klocke w dół dodając 1 do współrzędnej Y
     }
-    else {
-        blockBlock();
-    }
-}
-
-void moveLeft() {
-    if (checkIfBlockFits(currentBlockX - 1, currentBlockY, currentBlock)) {
-        currentBlockX--;
+    else { //jeśli nie 
+        blockBlock(); //wywołaj funkcję blokującą klocek
     }
 }
 
-void moveRight() {
-    if (checkIfBlockFits(currentBlockX + 1, currentBlockY, currentBlock)) {
-        currentBlockX++;
+void moveLeft() { //funkcja poruszająca klocek w lewo
+    if (checkIfBlockFits(currentBlockX - 1, currentBlockY, currentBlock)) { //warunek sprawdzający czy po przesunięcia klocka w lewo zmieści się on na planszy
+        currentBlockX--; //jeśli tak to przesuń klocek w lewo odejmując 1 od współrzędnej X
     }
 }
 
-void rotateBlock() {
+void moveRight() { //funkcja poruszająca klocek w prawo
+    if (checkIfBlockFits(currentBlockX + 1, currentBlockY, currentBlock)) { //warunek sprawdzający czy po przesunięcia klocka w prawo zmieści się on na planszy
+        currentBlockX++; //jeśli tak to przesuń klocek w prawo dodając 1 do współrzędnej X
+    }
+}
+
+void rotateBlock() { //funkcja obracająca klocek o 90 stopni
     int oldShape[4][4];
     int tempShape[4][4];
 
-    for (int i = 0; i < 4; i++) { //zapamiętanie aktualnego klocka
+    //zapamiętanie aktualnego klocka
+    for (int i = 0; i < 4; i++) { 
         for (int j = 0; j < 4; j++) {
-            oldShape[i][j] = currentBlockRotate[i][j];
+            oldShape[i][j] = currentBlockRotate[i][j]; //zapisanie kształtu aktualnego klocka w tablicy oldShape
         }
     }
 
-    for (int i = 0; i < 4; i++) { //tworzenie obruconego klocka
+    //tworzenie obruconego klocka
+    for (int i = 0; i < 4; i++) { 
         for (int j = 0; j < 4; j++) {
-            tempShape[j][3 - i] = oldShape[i][j];
+            tempShape[j][3 - i] = oldShape[i][j]; //obrucenie i zapisanie obruconego klocka w tablicy tempShape
         }
     }
 
-    for (int i = 0; i < 4; i++) { //podmieniamy kształt w głównej tablicy żeby móc sprawdzić czy się mieści
+    //wpisanie nowego kształtu klocka w plansze żeby sprawdzić czy się mieści 
+    for (int i = 0; i < 4; i++) { 
         for (int j = 0; j < 4; j++) {
-            currentBlockRotate[i][j] = tempShape[i][j];
+            currentBlockRotate[i][j] = tempShape[i][j]; //ustawienie nowego klocka na tablicy 
         }
     }
 
-    if (!checkIfBlockFits(currentBlockX, currentBlockY, currentBlock)) { //jeśli się nie mieści przywracamy stary kształt
+    if (!checkIfBlockFits(currentBlockX, currentBlockY, currentBlock)) { //sprawdzenie czy obrucony klocek nie mieści się na planszy
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                currentBlockRotate[i][j] = oldShape[i][j];
+                currentBlockRotate[i][j] = oldShape[i][j]; //jeśli tak to klocek powraca do pierwotnej pozycji
             }
         }
     }

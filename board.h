@@ -14,6 +14,8 @@ void drawBoard();
 //deklaracja funkcji sprawdzającej czy klocek się zmieści (czy mozna wykonać ruch)
 int checkIfBlockFits (int blockX, int blockY, int blockShape);
 
+/*==============================================================================*/
+
 //deklaracja funkcji blokującej klocek na planszy
 void blockBlock();
 
