@@ -222,13 +222,13 @@ void gameRun() {
 }
 
 void gameOver() {
-    printf("\n====================\n");
+    printf("\n======================\n");
     printf("      GAME OVER      \n");
-    printf("====================\n");
+    printf("======================\n");
     printf("     wynik: %d     \n", score);
-    printf("====================\n\n");
+    printf("======================\n\n");
 
-    printf("Wciśnij klawisz ESC, aby wyjść");
+    printf("Wcisnij klawisz ESC, aby wyjsc");
 }
 
 

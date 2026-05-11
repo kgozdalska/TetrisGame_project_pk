@@ -20,7 +20,7 @@ void drawBoard() {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
     printf("Wynik: %d   Poziom: %d\n", score, level);
-    printf("--------------------\n");
+    printf("----------------------\n");
 
     for (int j = 0; j < 20; j++) {
         printf("|");
@@ -50,7 +50,7 @@ void drawBoard() {
     }
     printf("|\n");
 }
-printf("--------------------\n");
+printf("----------------------\n");
 }
 
 int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlock) {
