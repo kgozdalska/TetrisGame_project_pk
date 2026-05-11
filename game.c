@@ -10,7 +10,7 @@
 int score = 0;
 int level = 0;
 int timeBeforeMove = 800;
-const int speed[20] = {800, 716, 633, 550, 466, 383, 300, 216, 133, 100, 83, 66, 50, 33}; //tablica z wartosciami uzywanymi do wskazania czasu przed opadnieciem klocka
+const int speed[20] = {800, 716, 633, 550, 466, 383, 300, 216, 133, 100, 83, 83, 83, 66, 66, 66, 50, 50, 50, 33}; //tablica z wartosciami uzywanymi do wskazania czasu przed opadnieciem klocka
 
 
 int currentBlockX;
