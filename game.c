@@ -225,7 +225,7 @@ void gameOver() {
     printf("\n======================\n");
     printf("      GAME OVER      \n");
     printf("======================\n");
-    printf("     wynik: %d     \n", score);
+    printf("      wynik: %d     \n", score);
     printf("======================\n\n");
 
     printf("Wcisnij klawisz ESC, aby wyjsc");
