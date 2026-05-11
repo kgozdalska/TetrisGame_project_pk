@@ -22,35 +22,35 @@ void drawBoard() {
     printf("Wynik: %d   Poziom: %d\n", score, level); // wskazywanie wyniku i poziomu nad plansza
     printf("--------------------\n"); //rysowanie gory planszy
 
-    for (int j = 0; j < 20; j++) { //rysowanie lewej sciany planszy
-        printf("|");
+    for (int j = 0; j < 20; j++) { //rysowanie wnetrza planszy
+        printf("|"); //rysowanie lewej sciany planszy
 
-        for (int i = 0; i < 10; i++) { //
+        for (int i = 0; i < 10; i++) { 
 
-            int isDrawn = 0;
+            int isDrawn = 0; //zmienna do sprawdzania czy w danym miejscu zostal narysowany aktualny klocek (1) czy nie (0)
 
-            if (i >= currentBlockX && i < currentBlockX + 4 && j >= currentBlockY && j < currentBlockY + 4) {
-                int blockX = i - currentBlockX;
-                int blockY = j - currentBlockY;
+            if (i >= currentBlockX && i < currentBlockX + 4 && j >= currentBlockY && j < currentBlockY + 4) { //sprawdzanie czy aktualnie znajdujemy sie w miejscu planszy w ktorym znajduje sie tablica z klockiem
+                int blockX = i - currentBlockX; //zmiana x planszy na x tablicy klocka
+                int blockY = j - currentBlockY; //zmiana y planszy na y tablicy klocka
 
-                if (currentBlockRotate[blockY][blockX] == 1) {
-                    printf("[]");
-                    isDrawn = 1;
+                if (currentBlockRotate[blockY][blockX] == 1) { // sprawdzanie czy w tym miejscu tablicy z klockiem znajduje sie klocek
+                    printf("[]"); //rysowanie klocka
+                    isDrawn = 1; //oznaczenie, ze to miejsce jest juz narysowane
             }
         }
 
-        if(isDrawn == 0) {
+        if(isDrawn == 0) { //rysowanie planszy w polach, w ktorych nie ma aktualnego klocka
             if(board[j][i] == 1) {
-                printf("[]");
+                printf("[]"); //rysowanie starych klockow 
             }
             else {
-                printf("  ");
+                printf("  "); //rysowanie pustego tla planszy
             }
         }
     }
-    printf("|\n");
+    printf("|\n"); //rysowanie prawej sciany planszy
 }
-printf("--------------------\n");
+printf("--------------------\n"); //rysowanie dolu planszy
 }
 
 int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlockRotate) {
