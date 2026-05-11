@@ -8,7 +8,7 @@
 int board[boardHeight][boardWidth];
 
 void createBoard() {
-    for (int j = 0; j < boardHeight; j++) {
+    for (int j = 0; j < boardHeight; j++) { //tworzenie planszy wypelnionej zerami
         for (int i = 0; i < boardWidth; i++) {
             board[j][i] = 0;
         }
@@ -16,16 +16,16 @@ void createBoard() {
 }
 
 void drawBoard() {
-    COORD pos = {0, 0};
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+    COORD cursorPosition = {0, 0}; //zmienna przechowująca koordynaty początku planszy (lewy gorny rog)
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition); //funkcja z windows.h zmieniajaca pozycje kursora na wskazane miejsce
 
-    printf("Wynik: %d   Poziom: %d\n", score, level);
-    printf("----------------------\n");
+    printf("Wynik: %d   Poziom: %d\n", score, level); // wskazywanie wyniku i poziomu nad plansza
+    printf("--------------------\n"); //rysowanie gory planszy
 
-    for (int j = 0; j < 20; j++) {
+    for (int j = 0; j < 20; j++) { //rysowanie lewej sciany planszy
         printf("|");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) { //
 
             int isDrawn = 0;
 
@@ -50,34 +50,31 @@ void drawBoard() {
     }
     printf("|\n");
 }
-printf("----------------------\n");
+printf("--------------------\n");
 }
 
-int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlock) {
-    for (int y = 0; y < 4; y++) {
-        for (int x = 0; x < 4; x++) {
-            if (currentBlockRotate[y][x] == 1) {
-                int boardX = blockTestX + x;
-                int boardY = blockTestY +y;
+int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlockRotate) {
+    for (int j = 0; j < 4; j++) {  
+        for (int i = 0; i < 4; i++) {
+            if (currentBlockRotate[j][i] == 1) { //branie jedynie pol w tablicy klocka, w ktorych istnieje klocek
+                int boardX = blockTestX + i;  //zmiana x klocka na x planszy 
+                int boardY = blockTestY +j; // //zmiana y klocka na y planszy
 
-                //sprawdzanie ścian
-                if (boardX < 0 || boardX >= 10) {
+                if (boardX < 0 || boardX >= 10) { //sprawdzanie ścian
                     return 0; // uderzy w bok planszy
                 }
 
-                //sprawdzanie podłogi
-                if (boardY >= boardHeight) {
+                if (boardY >= boardHeight) { //sprawdzanie podłogi
                     return 0; // uderzy w podłogę
                 }
-
-                //sprawdzanie innych klockow
-                if (boardY >= 0 && board[boardY][boardX] == 1) {
+ 
+                if (boardY >= 0 && board[boardY][boardX] == 1) { //sprawdzanie innych klockow
                     return 0; // zderzenie z klockiem
                 }
             }
         }
     }
-    return 1;
+    return 1; //brak kolizji
 }
 
 /*===========================================================================*/

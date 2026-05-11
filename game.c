@@ -10,7 +10,7 @@
 int score = 0;
 int level = 0;
 int timeBeforeMove = 800;
-const int speed[20] = {800, 716, 633, 550, 466, 383, 300, 216, 133, 100, 83, 66, 50, 33};
+const int speed[20] = {800, 716, 633, 550, 466, 383, 300, 216, 133, 100, 83, 66, 50, 33}; //tablica z wartosciami uzywanymi do wskazania czasu przed opadnieciem klocka
 
 
 int currentBlockX;
@@ -20,7 +20,7 @@ int currentBlockRotate[4][4];
 int linesClearedTotal = 0;
 int isGameOver = 0;
 
-const int blockShapes[7][4][4] = {
+const int blockShapes[7][4][4] = { //tablica z klockami Tetrimino
     //Tetrimino "I"
     {
         {0,1,0,0},
@@ -73,8 +73,8 @@ const int blockShapes[7][4][4] = {
 };
 
 void gameStart() {
-    CONSOLE_CURSOR_INFO cursorInfo = {1, FALSE};
-    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+    CONSOLE_CURSOR_INFO cursorInfo = {1, FALSE}; //zmienna wskazująca, ze kursor ma być niewidoczny
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);//funkcja z windows.h ustawiająca wielkość i widoczność kursora
 
     createBoard(); //wywołanie fukcji createBoard
 
@@ -221,7 +221,7 @@ void gameRun() {
     }
 }
 
-void gameOver() {
+void gameOver() { //rysowanie ekranu przegranej
     printf("\n======================\n");
     printf("      GAME OVER      \n");
     printf("======================\n");
