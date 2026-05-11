@@ -40,7 +40,7 @@ void drawBoard() {
         }
 
         if(isDrawn == 0) { //rysowanie planszy w polach, w ktorych nie ma aktualnego klocka
-            if(board[j][i] == 1) {
+            if(board[j][i] == 1) { 
                 printf("[]"); //rysowanie starych klockow 
             }
             else {

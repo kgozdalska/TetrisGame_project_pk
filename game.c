@@ -149,75 +149,77 @@ void rotateBlock() { //funkcja obracająca klocek o 90 stopni
 /*=========================================================================================================*/
 
 int chooseBlock() {
-    return currentBlock = rand() % 7;
+    return currentBlock = rand() % 7; //losowanie indeksu od 0 do 6 
 }
 
 int spawnBlock() {
-    currentBlock = chooseBlock();
-    currentBlockX = 3;
+    currentBlock = chooseBlock(); //wywolanie losowania indeksu klocka
+
+    //dodawanie klocka na srodku u gory planszy
+    currentBlockX = 3; 
     currentBlockY = 0;
 
-    for (int i = 0; i < 4; i++) { // to jest kopiowanie bloku potrzebne do rotateBlock
+    for (int i = 0; i < 4; i++) { 
         for (int j = 0; j < 4; j++) {
-            currentBlockRotate[i][j] = blockShapes[currentBlock][i][j];
+            currentBlockRotate[i][j] = blockShapes[currentBlock][i][j]; // kopiowanie klocka potrzebne do rotateBlock i drawBoard
         }
     }
 
-    if(checkIfBlockFits(currentBlockX, currentBlockY,currentBlock) == 0) {
-        return 0;
+    if(checkIfBlockFits(currentBlockX, currentBlockY,currentBlock) == 0) { //sprawdzanie czy klocek sie zmiesci na gorze planszy
+        return 0; // jest kolizja 
     }
-    return 1;
+    return 1; //nie ma kolizji
 }
 
 void gameRun() {
-    clock_t previousTime = clock();
+    clock_t previousTime = clock(); //poczatek stopera (zapisanie punktu poczatkowego czasu)
 
-    drawBoard();
+    drawBoard(); //rysowanie planszy
     
-    while (isGameOver == 0) {
-        int button = checkButton();
+    while (isGameOver == 0) { 
+        int button = checkButton(); //pobranie kodu wcisnietego klawisza
         
-        if(button == 224) {
-            button = checkButton();
-            if (button == 75) {
-                moveLeft();
+        if(button == 224) { //sprawdzenie czy wcisniety klawisz jest strzalka
+            button = checkButton(); //pobranie drugiego kodu klawisza (strzalki wysylaja sekwencje dwoch kodow)
+            if (button == 75) { // kod strzalki w lewo
+                moveLeft(); //funkcja przesuwajaca klocek w lewo
             }
-            else if (button == 77) {
-                moveRight();
+            else if (button == 77) { //kod strzalki w prawo
+                moveRight(); //funkcja przesuwajaca klocek w prawo
+            } 
+            else if (button == 80) { //kod strzalki w dol
+                moveBlock(); //funkcja przesuwajaca klocek w dol
             }
-            else if (button == 80) {
-                moveBlock();
-            }
 
         }
-        else if (button == 32) {
-            rotateBlock();
+        else if (button == 32) { //kod spacji
+            rotateBlock(); //funkcja obracajaca klocek
         }
-        else if (button == 27) {
-            break;
+        else if (button == 27) { //kod ESC
+            break; //zakonczenie gry
         }
-        clock_t currentTime = clock();
+        clock_t currentTime = clock(); //pobranie aktualnego czasu
 
-        if((currentTime - previousTime) >= timeBeforeMove) {
-            moveBlock();
-            previousTime = currentTime;
+        if((currentTime - previousTime) >= timeBeforeMove) { //sprawdzenie czy od ostatniego ruchu klocka w dol minelo wystarczajaco czasu
+            moveBlock(); //ruch klocka w dol
+            previousTime = currentTime; //resetowanie stopera (ustawienie aktualnego czasu jako punkt poczatkowy)
         }
 
-        clearLine();
+        clearLine(); //sprawdzenie i ewentualne usuniecie pelnych linii oraz zaktualizowanie wyniku i poziomu
 
-        int speedLevel = level;
-        if(speedLevel > 19) {
+        int speedLevel = level; // skopiowanie aktualnego poziomu
+        if(speedLevel > 19) { //sprawdzenie czy wyszlismy poza tablice predkosci (maksymalny poziom to 19)
             speedLevel = 19;
         }
 
-        timeBeforeMove = speed[speedLevel];
+        timeBeforeMove = speed[speedLevel]; //zaktualizowanie czasu przed opadnieciem klocka zgodnie z aktualnym poziomem
 
-        drawBoard();
+        drawBoard(); //narysowanie zaktualizowanej planszy
 
-        Sleep(10);
+        Sleep(10); //krotka przerwa dla odciazenia procesora
     }
     if (isGameOver == 1) {
-        gameOver();
+        gameOver(); //wyswietlenie ekranu przegranej
     }
 }
 
