@@ -53,7 +53,7 @@ void drawBoard() {
 printf("--------------------\n"); //rysowanie dolu planszy
 }
 
-int checkIfBlockFits(int blockTestX, int blockTestY, int currentBlockRotate) {
+int checkIfBlockFits(int blockTestX, int blockTestY) {
     for (int j = 0; j < 4; j++) {  
         for (int i = 0; i < 4; i++) {
             if (currentBlockRotate[j][i] == 1) { //branie jedynie pol w tablicy klocka, w ktorych istnieje klocek
