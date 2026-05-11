@@ -123,10 +123,10 @@ void rotateBlock() { //funkcja obracająca klocek o 90 stopni
         }
     }
 
-    //tworzenie obruconego klocka
+    //tworzenie obróconego klocka
     for (int i = 0; i < 4; i++) { 
         for (int j = 0; j < 4; j++) {
-            tempShape[j][3 - i] = oldShape[i][j]; //obrucenie i zapisanie obruconego klocka w tablicy tempShape
+            tempShape[j][3 - i] = oldShape[i][j]; //obrócenie i zapisanie obróconego klocka w tablicy tempShape
         }
     }
 
@@ -137,7 +137,7 @@ void rotateBlock() { //funkcja obracająca klocek o 90 stopni
         }
     }
 
-    if (!checkIfBlockFits(currentBlockX, currentBlockY, currentBlock)) { //sprawdzenie czy obrucony klocek nie mieści się na planszy
+    if (!checkIfBlockFits(currentBlockX, currentBlockY, currentBlock)) { //sprawdzenie czy obrócony klocek nie mieści się na planszy
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 currentBlockRotate[i][j] = oldShape[i][j]; //jeśli tak to klocek powraca do pierwotnej pozycji
